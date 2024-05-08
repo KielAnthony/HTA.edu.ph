@@ -455,3 +455,20 @@ h3 {
     border: 1px solid #ccc;
     box-sizing: border-box;
 }
+
+.dropdown{
+	position: relative;
+}
+
+.dropdown-menu{
+	display: none; 
+	position: absolute;
+	top: 100%;
+	left: 0;
+	background-color: #fff
+	box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.dropdown:hover .dropdown-menu {
+		display: block;
+}
