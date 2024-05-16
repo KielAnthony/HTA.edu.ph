@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Mix</title>
+    <style>
+        /* styles.css */
+
+        body {
+            background-color: purple;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .colorButton {
+            padding: 15px 30px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            color: white;
+        }
+
+        .colorButton.red {
+            background-color: red;
+        }
+
+        .colorButton.blue {
+            background-color: blue;
+        }
+
+        .colorButton.yellow {
+            background-color: yellow;
+            color: black;
+        }
+
+        .colorButton.remove {
+            background-color: #ff6347;
+            /* tomato */
+        }
+
+        .colorButton.clear {
+            background-color: #f0e68c;
+            /* khaki */
+            color: black;
+        }
+
+        .colorButton:hover {
+            transform: scale(1.1);
+        }
+
+        #colorDisplay {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 1.5em;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h1><i>Color Mix</i></h1>
+    <div class="button-container">
+        <button class="colorButton red" onclick="addColor('Red')">Add Red</button>
+        <button class="colorButton blue" onclick="addColor('Blue')">Add Blue</button>
+        <button class="colorButton yellow" onclick="addColor('Yellow')">Add Yellow</button>
+        <button class="colorButton remove" onclick="removeLastColor()">Remove Last Color</button>
+        <button class="colorButton clear" onclick="clearMix()">Clear Mix</button>
+    </div>
+    <div id="colorDisplay">No colors in the mix yet!</div>
+    <script>
+        // script.js
+
+        let colorMix = [];
+
+        function addColor(color) {
+            colorMix.push(color);
+            updateDisplay();
+        }
+
+        function removeLastColor() {
+            if (colorMix.length > 0) {
+                const removedColor = colorMix.pop();
+                updateDisplay(`Removed: ${removedColor}`);
+            } else {
+                updateDisplay('No colors to remove!');
+            }
+        }
+
+        function clearMix() {
+            colorMix = [];
+            updateDisplay('Color mix cleared!');
+        }
+
+        function updateDisplay(message = '') {
+            const display = document.getElementById('colorDisplay');
+            if (colorMix.length === 0 && message === '') {
+                display.textContent = 'No colors in the mix yet!';
+            } else if (message !== '') {
+                display.textContent = message;
+            } else {
+                display.textContent = 'Current mix: ' + colorMix.join(' + ');
+            }
+        }
+
+    </script>
+</body>
+
+</html>

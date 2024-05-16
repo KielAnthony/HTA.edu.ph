@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compound Interest Calculator</title>
+    <style>
+        
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: lightgreen;
+    text-align: center;
+    padding: 50px;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.calculator-container {
+    display: inline-block;
+    text-align: left;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+button:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+#result, #log {
+    margin-top: 20px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-size: 1.2em;
+}
+
+#log {
+    text-align: left;
+}
+
+    </style>
+</head>
+<body>
+    <h1><i>Compound Interest Calculator</i></h1>
+    <div class="calculator-container">
+        <label for="principal">Principal amount:</label>
+        <input type="number" id="principal" step="0.01" placeholder="Enter principal">
+        
+        <label for="rate">Annual interest rate (%):</label>
+        <input type="number" id="rate" step="0.01" placeholder="Enter rate">
+        
+        <label for="time">Time (years):</label>
+        <input type="number" id="time" placeholder="Enter time">
+        
+        <label for="compoundFrequency">Compound frequency:</label>
+        <select id="compoundFrequency">
+            <option value="1">Annually</option>
+            <option value="2">Semi-annually</option>
+            <option value="4">Quarterly</option>
+            <option value="12">Monthly</option>
+        </select>
+        
+        <button onclick="calculateInterest()">Calculate</button>
+    </div>
+    
+    <div id="result"></div>
+    <div id="log"></div>
+
+    <script>
+function calculateInterest() {
+    const principal = parseFloat(document.getElementById("principal").value);
+    const rate = parseFloat(document.getElementById("rate").value) / 100;
+    const time = parseFloat(document.getElementById("time").value);
+    const compoundFrequency = parseFloat(document.getElementById("compoundFrequency").value);
+
+    if (isNaN(principal) || isNaN(rate) || isNaN(time) || isNaN(compoundFrequency)) {
+        document.getElementById("result").textContent = "Please enter valid inputs.";
+        return;
+    }
+
+    let compoundPrincipal = principal;
+    let years = 0;
+
+    document.getElementById("log").innerHTML = "";
+
+    while (years < time) {
+        compoundPrincipal *= Math.pow(1 + rate / compoundFrequency, compoundFrequency);
+        years += 1;
+        document.getElementById("log").innerHTML += `Year ${years}: Compound principal = $${compoundPrincipal.toFixed(2)}<br>`;
+    }
+
+    const compoundInterest = compoundPrincipal - principal;
+    document.getElementById("result").textContent = `Compound interest: $${compoundInterest.toFixed(2)}`;
+}
+
+    </script>
+</body>
+</html>
